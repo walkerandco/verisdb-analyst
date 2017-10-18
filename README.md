@@ -1,5 +1,5 @@
 # VERISDB Analyst
-An application for realtime visual and interactive analysis of VERISDB incident data. The server uses isomorphic javascript and mongodb to analyse the data at lightning fast speeds. This application provides a web interface which analyses a VERIS dataset in realtime. Updates can be push to the client via sockets which make the application dramatically more flexible than conventional solutions. The primary purpose of this application is to provide a simple specialised tool for analysing incident data. The application starts a webservice which can be accessed via single page web application with a server running in the background, or you can curl requests to it. The application employs the MapReduce design pattern because the focus of this software is to digest the VERISDB incident data in its standard schema and produce summarised incident data for use in the real world. Contributions would be much appreciated.
+An application for realtime visual and interactive analysis of VERISDB incident data. The server uses isomorphic javascript and MongoDB to analyse the data at lightning fast speeds. This application provides a web interface which analyses a VERIS dataset in realtime. Updates can be pushed to the client via sockets which make the application dramatically more flexible than conventional solutions. The primary purpose of this application is to provide a simple specialised tool for analysing incident data. The application starts a webservice which can be accessed via a single page web application with a server running in the background, or you can ```curl``` requests to it. The application employs the MapReduce design pattern because the focus of this software is to digest the VERISDB incident data in its standard schema and produce summarised incident data for use in the real world. Contributions would be much appreciated. Some of the functions are somewhat hacky because the schema of VERIS is non-standard and does not strictly comply with the JSON specification because some of the keys and values are stored in object names and not primitive types. When this application was produced, this was raised with the team maintaining VERIS. When the schema changes, this application will change to reflect the updated schema. Until then, it may be difficult to work with the dataset in a uniform way, thus there is unnecessary duplication within the codebase.
 
 This was produced as part of a research program at the Manchester Metropolitan University as regards internal threats and the emerging paradigm of zero-trust / unprivileged computer security.
 
@@ -79,7 +79,7 @@ POST /
 ```
 
 # Contributions and Issues
-This repository will be update regularly. Please raise any issues on this GitHub repo, not by direct contact via email etc.
+This repository will be updated regularly. Please raise any issues on this GitHub repo, not by direct contact via email etc.
 If you wish to make a contribution, simply raise an issue and/or submit a pull request referencing that issue and I will review it fairly promptly.
 
 *Copyright (c) Steven Walker-Roberts 2017*
