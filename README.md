@@ -1,6 +1,8 @@
 # VERISDB Analyst
 An application for realtime visual and interactive analysis of VERISDB incident data. The server uses isomorphic javascript and mongodb to analyse the data at lightning fast speeds. This application provides a web interface which analyses a VERIS dataset in realtime. Updates can be push to the client via sockets which make the application dramatically more flexible than conventional solutions. The primary purpose of this application is to provide a simple specialised tool for analysing incident data. The application starts a webservice which can be accessed via single page web application with a server running in the background, or you can curl requests to it. The application employs the MapReduce design pattern because the focus of this software is to digest the VERISDB incident data in its standard schema and produce summarised incident data for use in the real world. Contributions would be much appreciated.
 
+This was produced as part of a research program at the Manchester Metropolitan University as regards internal threats and the emerging paradigm of zero-trust / unprivileged computer security.
+
 # TODO (est. December 2017)
 2. Add unit tests for Travis.
 3. Publish to npm.
@@ -20,6 +22,22 @@ Example
 
 mongourl: The string you use to connect to your server.
 ```
+
+# Using the Search Interface
+The search interface on the 'Search' tab and the search field in the 'Filter' option on all other tabs receives a MongoDB match query. For clarity, any query which is supplied to $match should work and all relevant MongoDB documentation associated with $match applies to usage of the search fields. It is recommended that the schema at vz-risk/vcdb be consulted for likely search candidates. **Remember to stringify your query**. For example, here are some common candidate queries:
+
+```
+Search for all trojans within the "summary" field of an incident report.
+{"summary": {"$regex": "trojan"}}
+
+Search all incident reports for those which occurred in 2013 only.
+{"timeline.incident.year": 2013}
+
+Search for all incidents where the actor was 'internal'.
+{"actor.internal": {"$exists": true}}
+```
+
+The graphs will automatically update. Though Chart.js (the graphing dependency) can update in real-time, for large reloads the partial containing the graphs will be reloaded not redrawn. However, the application can receive updates via socket which simply cause a redraw when the server publishes updates.
 
 # Installation
 
