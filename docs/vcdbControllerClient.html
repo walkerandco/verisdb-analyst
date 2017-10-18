@@ -135,6 +135,1441 @@
     
 
     
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="clear"><span class="type-signature"></span>clear<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Clears search state.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="fail"><span class="type-signature"></span>fail<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Notifies a failure.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line153">line 153</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getActorData"><span class="type-signature"></span>getActorData<span class="signature">(type, match, removeUnknown)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Submits an actor request across the socket.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Type of actor data to retrieve (subject-object in actor heirarchy of VERIS)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>match</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Match query.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeUnknown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to exclude reported unknown values.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line194">line 194</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>Fires:</h5>
+<ul>
+    <li><a href="external-socketio.html#event:emit:attack">external:socketio#emit:attack</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getAttackData"><span class="type-signature"></span>getAttackData<span class="signature">(match, removeUnknown)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Submits an attack request across the socket.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>match</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Match query.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeUnknown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to exclude reported unknown values.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line225">line 225</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>Fires:</h5>
+<ul>
+    <li><a href="external-socketio.html#event:emit:attack">external:socketio#emit:attack</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getImpactData"><span class="type-signature"></span>getImpactData<span class="signature">(type, match, removeUnknown)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Submits an impact request across the socket.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Type of impact data to retrieve (subject-object in impact heirarchy of VERIS)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>match</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Match query.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeUnknown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to exclude reported unknown values.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line255">line 255</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>Fires:</h5>
+<ul>
+    <li><a href="external-socketio.html#event:emit:impact">external:socketio#emit:impact</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getVictimData"><span class="type-signature"></span>getVictimData<span class="signature">(match, removeUnknown)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Submits a victim request across the socket.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>match</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Match query.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeUnknown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to exclude reported unknown values.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line284">line 284</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>Fires:</h5>
+<ul>
+    <li><a href="external-socketio.html#event:emit:victim">external:socketio#emit:victim</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="inspect"><span class="type-signature"></span>inspect<span class="signature">(removeUnknown)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Submits a inspect request across the socket.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>removeUnknown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Whether to exclude reported unknown values.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line312">line 312</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>Fires:</h5>
+<ul>
+    <li><a href="external-socketio.html#event:emit:inspect">external:socketio#emit:inspect</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="mode"><span class="type-signature"></span>mode<span class="signature">(mode, removeUnknown)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets the application mode.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>mode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Application view mode.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeUnknown</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Flag for removing unknown values.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="recover"><span class="type-signature"></span>recover<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Recovers the application after a crash.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line163">line 163</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="search"><span class="type-signature"></span>search<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Submits a search across the socket.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line171">line 171</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>Fires:</h5>
+<ul>
+    <li><a href="external-socketio.html#event:emit:search">external:socketio#emit:search</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="toggleFilter"><span class="type-signature"></span>toggleFilter<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Toggle the filter menu.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="client_js_controllers_vcdbControllerClient.js.html">client/js/controllers/vcdbControllerClient.js</a>, <a href="client_js_controllers_vcdbControllerClient.js.html#line142">line 142</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
 
     
 
@@ -149,13 +1584,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-vcdbControllerServer.html">vcdbControllerServer</a></li></ul><h3>Externals</h3><ul><li><a href="external-express.html">express</a></li><li><a href="external-fs.html">fs</a></li><li><a href="external-http.html">http</a></li><li><a href="external-jstat.html">jstat</a></li><li><a href="external-lodash.html">lodash</a></li><li><a href="external-MongoClient.html">MongoClient</a></li><li><a href="external-socketio.html">socketio</a></li></ul><h3>Classes</h3><ul><li><a href="actorData.html">actorData</a></li><li><a href="attackData.html">attackData</a></li><li><a href="impactData.html">impactData</a></li><li><a href="IncidentSummary.html">IncidentSummary</a></li><li><a href="vcdbControllerClient.html">vcdbControllerClient</a></li><li><a href="vcdbDAO.html">vcdbDAO</a></li><li><a href="vcdbHelper.html">vcdbHelper</a></li><li><a href="victimData.html">victimData</a></li></ul><h3>Events</h3><ul><li><a href="external-socketio.html#event:emit:actor">emit:actor</a></li><li><a href="external-socketio.html#event:emit:actorData">emit:actorData</a></li><li><a href="external-socketio.html#event:emit:attack">emit:attack</a></li><li><a href="external-socketio.html#event:emit:attackData">emit:attackData</a></li><li><a href="external-socketio.html#event:emit:impact">emit:impact</a></li><li><a href="external-socketio.html#event:emit:impactData">emit:impactData</a></li><li><a href="external-socketio.html#event:emit:initialobject">emit:initialobject</a></li><li><a href="external-socketio.html#event:emit:inspect">emit:inspect</a></li><li><a href="external-socketio.html#event:emit:inspection">emit:inspection</a></li><li><a href="external-socketio.html#event:emit:search">emit:search</a></li><li><a href="external-socketio.html#event:emit:searchData">emit:searchData</a></li><li><a href="external-socketio.html#event:emit:victim">emit:victim</a></li><li><a href="external-socketio.html#event:emit:victimData">emit:victimData</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_">_</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#debug">debug</a></li><li><a href="global.html#jstat">jstat</a></li><li><a href="global.html#server">server</a></li><li><a href="global.html#socket">socket</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-vcdbControllerServer.html">vcdbControllerServer</a></li></ul><h3>Externals</h3><ul><li><a href="external-express.html">express</a></li><li><a href="external-fs.html">fs</a></li><li><a href="external-http.html">http</a></li><li><a href="external-https.html">https</a></li><li><a href="external-jstat.html">jstat</a></li><li><a href="external-lodash.html">lodash</a></li><li><a href="external-MongoClient.html">MongoClient</a></li><li><a href="external-socketio.html">socketio</a></li></ul><h3>Classes</h3><ul><li><a href="actorData.html">actorData</a></li><li><a href="attackData.html">attackData</a></li><li><a href="impactData.html">impactData</a></li><li><a href="IncidentSummary.html">IncidentSummary</a></li><li><a href="vcdbControllerClient.html">vcdbControllerClient</a></li><li><a href="vcdbDAO.html">vcdbDAO</a></li><li><a href="vcdbFactory.html">vcdbFactory</a></li><li><a href="vcdbHelper.html">vcdbHelper</a></li><li><a href="victimData.html">victimData</a></li></ul><h3>Events</h3><ul><li><a href="external-socketio.html#event:emit:actor">emit:actor</a></li><li><a href="external-socketio.html#event:emit:actorData">emit:actorData</a></li><li><a href="external-socketio.html#event:emit:attack">emit:attack</a></li><li><a href="external-socketio.html#event:emit:attackData">emit:attackData</a></li><li><a href="external-socketio.html#event:emit:impact">emit:impact</a></li><li><a href="external-socketio.html#event:emit:impactData">emit:impactData</a></li><li><a href="external-socketio.html#event:emit:initialobject">emit:initialobject</a></li><li><a href="external-socketio.html#event:emit:inspect">emit:inspect</a></li><li><a href="external-socketio.html#event:emit:inspection">emit:inspection</a></li><li><a href="external-socketio.html#event:emit:search">emit:search</a></li><li><a href="external-socketio.html#event:emit:searchData">emit:searchData</a></li><li><a href="external-socketio.html#event:emit:victim">emit:victim</a></li><li><a href="external-socketio.html#event:emit:victimData">emit:victimData</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_">_</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#debug">debug</a></li><li><a href="global.html#jstat">jstat</a></li><li><a href="global.html#server">server</a></li><li><a href="global.html#socket">socket</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 18 2017 06:54:29 GMT+0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 18 2017 07:01:10 GMT+0000 (UTC)
 </footer>
 
 <script> prettyPrint(); </script>

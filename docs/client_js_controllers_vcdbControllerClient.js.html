@@ -64,7 +64,7 @@ var socket = io.connect();
 /**
  * Data Controller for Angular
  * @class
- * @memberof vcdbServer
+ * @memberof vcdbControllerServer
  * @lends vcdbControllerClient.prototype
  */
 
@@ -121,7 +121,7 @@ module.exports = function($scope, $timeout) {
   
   /**
    * Clears search state.
-   * @function dataController#clear
+   * @function vcdbControllerClient#clear
    */
     $scope.clear = () => {
       //clear search state
@@ -137,7 +137,7 @@ module.exports = function($scope, $timeout) {
   
   /**
    * Sets the application mode.
-   * @function dataController#mode
+   * @function vcdbControllerClient#mode
    * @param {string} mode - Application view mode.
 	 * @param {integer} removeUnknown - Flag for removing unknown values.
    */
@@ -169,7 +169,7 @@ module.exports = function($scope, $timeout) {
 		
 		/**
 		 * Toggle the filter menu.
-		 * @function dataController#toggleFilter
+		 * @function vcdbControllerClient#toggleFilter
 		 */
 		$scope.toggleFilter = () => {
 			$scope.filterToggle = ($scope.filterToggle===0 ? 1 : 0);
@@ -180,7 +180,7 @@ module.exports = function($scope, $timeout) {
    
   /**
    * Notifies a failure.
-   * @function dataController#fail
+   * @function vcdbControllerClient#fail
    */
    $scope.fail = ()=> {
 	   if($scope.appState.loading){
@@ -190,7 +190,7 @@ module.exports = function($scope, $timeout) {
    
    /**
    * Recovers the application after a crash.
-   * @function dataController#recover
+   * @function vcdbControllerClient#recover
    */
    $scope.recover = ()=> {
 	window.location.reload();
@@ -198,7 +198,7 @@ module.exports = function($scope, $timeout) {
    
   /**
    * Submits a search across the socket.
-   * @function dataController#search
+   * @function vcdbControllerClient#search
    * @fires external:socketio#emit:search
    */
     $scope.search = () => {
@@ -221,7 +221,7 @@ module.exports = function($scope, $timeout) {
   
   /**
    * Submits an actor request across the socket.
-   * @function dataController#getActorData
+   * @function vcdbControllerClient#getActorData
    * @param {string} type - Type of actor data to retrieve (subject-object in actor heirarchy of VERIS)
    * @param {string} match - Match query.
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
@@ -252,7 +252,7 @@ module.exports = function($scope, $timeout) {
   
   /**
    * Submits an attack request across the socket.
-   * @function dataController#getAttackData
+   * @function vcdbControllerClient#getAttackData
    * @param {string} match - Match query.
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
    * @fires external:socketio#emit:attack
@@ -282,7 +282,7 @@ module.exports = function($scope, $timeout) {
 	
   /**
    * Submits an impact request across the socket.
-   * @function dataController#getImpactData
+   * @function vcdbControllerClient#getImpactData
    * @param {string} type - Type of impact data to retrieve (subject-object in impact heirarchy of VERIS)
    * @param {string} match - Match query.
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
@@ -311,7 +311,7 @@ module.exports = function($scope, $timeout) {
 	
   /**
    * Submits a victim request across the socket.
-   * @function dataController#getVictimData
+   * @function vcdbControllerClient#getVictimData
    * @param {string} match - Match query.
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
    * @fires external:socketio#emit:victim
@@ -339,7 +339,7 @@ module.exports = function($scope, $timeout) {
 	
   /**
    * Submits a inspect request across the socket.
-   * @function dataController#inspect
+   * @function vcdbControllerClient#inspect
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
    * @fires external:socketio#emit:inspect
    */
@@ -505,13 +505,13 @@ module.exports = function($scope, $timeout) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-vcdbControllerServer.html">vcdbControllerServer</a></li></ul><h3>Externals</h3><ul><li><a href="external-express.html">express</a></li><li><a href="external-fs.html">fs</a></li><li><a href="external-http.html">http</a></li><li><a href="external-jstat.html">jstat</a></li><li><a href="external-lodash.html">lodash</a></li><li><a href="external-MongoClient.html">MongoClient</a></li><li><a href="external-socketio.html">socketio</a></li></ul><h3>Classes</h3><ul><li><a href="actorData.html">actorData</a></li><li><a href="attackData.html">attackData</a></li><li><a href="impactData.html">impactData</a></li><li><a href="IncidentSummary.html">IncidentSummary</a></li><li><a href="vcdbControllerClient.html">vcdbControllerClient</a></li><li><a href="vcdbDAO.html">vcdbDAO</a></li><li><a href="vcdbHelper.html">vcdbHelper</a></li><li><a href="victimData.html">victimData</a></li></ul><h3>Events</h3><ul><li><a href="external-socketio.html#event:emit:actor">emit:actor</a></li><li><a href="external-socketio.html#event:emit:actorData">emit:actorData</a></li><li><a href="external-socketio.html#event:emit:attack">emit:attack</a></li><li><a href="external-socketio.html#event:emit:attackData">emit:attackData</a></li><li><a href="external-socketio.html#event:emit:impact">emit:impact</a></li><li><a href="external-socketio.html#event:emit:impactData">emit:impactData</a></li><li><a href="external-socketio.html#event:emit:initialobject">emit:initialobject</a></li><li><a href="external-socketio.html#event:emit:inspect">emit:inspect</a></li><li><a href="external-socketio.html#event:emit:inspection">emit:inspection</a></li><li><a href="external-socketio.html#event:emit:search">emit:search</a></li><li><a href="external-socketio.html#event:emit:searchData">emit:searchData</a></li><li><a href="external-socketio.html#event:emit:victim">emit:victim</a></li><li><a href="external-socketio.html#event:emit:victimData">emit:victimData</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_">_</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#debug">debug</a></li><li><a href="global.html#jstat">jstat</a></li><li><a href="global.html#server">server</a></li><li><a href="global.html#socket">socket</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-vcdbControllerServer.html">vcdbControllerServer</a></li></ul><h3>Externals</h3><ul><li><a href="external-express.html">express</a></li><li><a href="external-fs.html">fs</a></li><li><a href="external-http.html">http</a></li><li><a href="external-https.html">https</a></li><li><a href="external-jstat.html">jstat</a></li><li><a href="external-lodash.html">lodash</a></li><li><a href="external-MongoClient.html">MongoClient</a></li><li><a href="external-socketio.html">socketio</a></li></ul><h3>Classes</h3><ul><li><a href="actorData.html">actorData</a></li><li><a href="attackData.html">attackData</a></li><li><a href="impactData.html">impactData</a></li><li><a href="IncidentSummary.html">IncidentSummary</a></li><li><a href="vcdbControllerClient.html">vcdbControllerClient</a></li><li><a href="vcdbDAO.html">vcdbDAO</a></li><li><a href="vcdbFactory.html">vcdbFactory</a></li><li><a href="vcdbHelper.html">vcdbHelper</a></li><li><a href="victimData.html">victimData</a></li></ul><h3>Events</h3><ul><li><a href="external-socketio.html#event:emit:actor">emit:actor</a></li><li><a href="external-socketio.html#event:emit:actorData">emit:actorData</a></li><li><a href="external-socketio.html#event:emit:attack">emit:attack</a></li><li><a href="external-socketio.html#event:emit:attackData">emit:attackData</a></li><li><a href="external-socketio.html#event:emit:impact">emit:impact</a></li><li><a href="external-socketio.html#event:emit:impactData">emit:impactData</a></li><li><a href="external-socketio.html#event:emit:initialobject">emit:initialobject</a></li><li><a href="external-socketio.html#event:emit:inspect">emit:inspect</a></li><li><a href="external-socketio.html#event:emit:inspection">emit:inspection</a></li><li><a href="external-socketio.html#event:emit:search">emit:search</a></li><li><a href="external-socketio.html#event:emit:searchData">emit:searchData</a></li><li><a href="external-socketio.html#event:emit:victim">emit:victim</a></li><li><a href="external-socketio.html#event:emit:victimData">emit:victimData</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_">_</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#debug">debug</a></li><li><a href="global.html#jstat">jstat</a></li><li><a href="global.html#server">server</a></li><li><a href="global.html#socket">socket</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 18 2017 06:54:29 GMT+0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 18 2017 07:01:10 GMT+0000 (UTC)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -36,7 +36,7 @@ var socket = io.connect();
 /**
  * Data Controller for Angular
  * @class
- * @memberof vcdbServer
+ * @memberof vcdbControllerServer
  * @lends vcdbControllerClient.prototype
  */
 
@@ -93,7 +93,7 @@ module.exports = function($scope, $timeout) {
   
   /**
    * Clears search state.
-   * @function dataController#clear
+   * @function vcdbControllerClient#clear
    */
     $scope.clear = () => {
       //clear search state
@@ -109,7 +109,7 @@ module.exports = function($scope, $timeout) {
   
   /**
    * Sets the application mode.
-   * @function dataController#mode
+   * @function vcdbControllerClient#mode
    * @param {string} mode - Application view mode.
 	 * @param {integer} removeUnknown - Flag for removing unknown values.
    */
@@ -141,7 +141,7 @@ module.exports = function($scope, $timeout) {
 		
 		/**
 		 * Toggle the filter menu.
-		 * @function dataController#toggleFilter
+		 * @function vcdbControllerClient#toggleFilter
 		 */
 		$scope.toggleFilter = () => {
 			$scope.filterToggle = ($scope.filterToggle===0 ? 1 : 0);
@@ -152,7 +152,7 @@ module.exports = function($scope, $timeout) {
    
   /**
    * Notifies a failure.
-   * @function dataController#fail
+   * @function vcdbControllerClient#fail
    */
    $scope.fail = ()=> {
 	   if($scope.appState.loading){
@@ -162,7 +162,7 @@ module.exports = function($scope, $timeout) {
    
    /**
    * Recovers the application after a crash.
-   * @function dataController#recover
+   * @function vcdbControllerClient#recover
    */
    $scope.recover = ()=> {
 	window.location.reload();
@@ -170,7 +170,7 @@ module.exports = function($scope, $timeout) {
    
   /**
    * Submits a search across the socket.
-   * @function dataController#search
+   * @function vcdbControllerClient#search
    * @fires external:socketio#emit:search
    */
     $scope.search = () => {
@@ -193,7 +193,7 @@ module.exports = function($scope, $timeout) {
   
   /**
    * Submits an actor request across the socket.
-   * @function dataController#getActorData
+   * @function vcdbControllerClient#getActorData
    * @param {string} type - Type of actor data to retrieve (subject-object in actor heirarchy of VERIS)
    * @param {string} match - Match query.
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
@@ -224,7 +224,7 @@ module.exports = function($scope, $timeout) {
   
   /**
    * Submits an attack request across the socket.
-   * @function dataController#getAttackData
+   * @function vcdbControllerClient#getAttackData
    * @param {string} match - Match query.
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
    * @fires external:socketio#emit:attack
@@ -254,7 +254,7 @@ module.exports = function($scope, $timeout) {
 	
   /**
    * Submits an impact request across the socket.
-   * @function dataController#getImpactData
+   * @function vcdbControllerClient#getImpactData
    * @param {string} type - Type of impact data to retrieve (subject-object in impact heirarchy of VERIS)
    * @param {string} match - Match query.
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
@@ -283,7 +283,7 @@ module.exports = function($scope, $timeout) {
 	
   /**
    * Submits a victim request across the socket.
-   * @function dataController#getVictimData
+   * @function vcdbControllerClient#getVictimData
    * @param {string} match - Match query.
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
    * @fires external:socketio#emit:victim
@@ -311,7 +311,7 @@ module.exports = function($scope, $timeout) {
 	
   /**
    * Submits a inspect request across the socket.
-   * @function dataController#inspect
+   * @function vcdbControllerClient#inspect
    * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
    * @fires external:socketio#emit:inspect
    */
