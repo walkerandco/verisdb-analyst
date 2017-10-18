@@ -1,2 +1,69 @@
 # verisdb-analyst
 An application for realtime visual and interactive analysis of VERISDB incident data. The server uses isomorphic javascript and mongodb to analyse the data at lightning fast speeds.
+
+# TODO (est. December 2017)
+2. Add unit tests for Travis.
+3. Publish to npm.
+1. Pull automatic updates from vz-risk/vcdb or on manual request within web interface and re-populate MongoDB.
+3. Add command line options handler.
+3. Dockerise application and configure to install and populate MongoDB on first run.
+
+
+**Requires: Node.js 4.0+ and MongoDB 3.4+**
+
+# Usage
+
+
+```
+Example
+>node vcdbControllerServer.js mongourl
+
+mongourl: The string you use to connect to your server.
+```
+
+# Installation
+
+Ensure you are using the most recent versions of Node.JS and MongoDB. Download the joined JSON data file from here: https://github.com/walkerandco/VCDB-JSON-Merged/blob/master/vcdb-complete.json.
+
+Then make sure you have pulled the latest version of this repo by running:
+```
+git clone https://github.com/walkerandco/verisdb-analyst.git
+```
+
+Once you have done this, you should be able to import data into MongoDB by running:
+```
+mongoimport --db yourdbname --collection yourcollectionname --file vcdb-complete.json --jsonArray
+```
+
+Once this is done, run:
+```
+node vcdbControllerServer.js mongourl
+```
+
+A web interface will appear on port 15002, and so the address will be http://yourip:15002/.
+
+# API
+Presently, VerisDB Analyst has the following REST endpoints:
+
+GET /
+```
+/actors - returns actor types
+/actors/:type - returns all actor data involving that type
+/attacks - returns attack types
+/attacks/:type - returns all attack data involving that type
+/impacts - returns impact data
+/victims - returns victim data
+```
+
+POST /
+```
+/query - POST an object of format {match, group, sort, unwind} in order to receive aggregated data in response.
+```
+
+# Contributions and Issues
+This repository will be update regularly. Please raise any issues on this GitHub repo, not by direct contact via email etc.
+If you wish to make a contribution, simply raise an issue and/or submit a pull request referencing that issue and I will review it fairly promptly.
+
+*Copyright (c) Steven Walker-Roberts 2017*
+
+
