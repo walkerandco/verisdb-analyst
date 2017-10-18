@@ -174,7 +174,6 @@ class vcdbFactory {
 		//WARNING: THIS FUNCTION IS RATHER HACKY BECAUSE VCDB IS NOT JSON COMPLIANT
 		async reduceActorData (dbString, colString, type, match, removeUnknown) {
 			try {
-				debugger;
 				//create contexts
 				var plurals = ['countries', 'motives', 'varieties'];
 				var singulars = ['country', 'motive', 'variety'];

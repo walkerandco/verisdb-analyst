@@ -64,12 +64,18 @@ const vcdbFactory = require('./factories/vcdbFactory.js')(process.argv[2], debug
 // HTTP Server
 //rest endpoints
 app.get('/actors', async (req, res) => {
-  res.set('Content-Type', 'application/json');
-  res.json(await vcdbFactory.reduceActorData('VCDB', 'Incidents', 'internal', null));
+	res.json(['internal', 'external', 'partner']);
 })
 app.get('/attacks', async (req, res) => {
+	res.json(['malware', 'hacking', 'social', 'physical', 'misuse', 'error', 'environmental', 'unknown']);
+})
+app.get('/actors/:type', async (req, res) => {
   res.set('Content-Type', 'application/json');
-  res.json(await vcdbFactory.reduceAttackData('VCDB', 'Incidents', 'misuse', null));
+  if(req.params.type) res.json(await vcdbFactory.reduceActorData('VCDB', 'Incidents',  req.params.type, null));
+})
+app.get('/attacks/:type', async (req, res) => {
+  res.set('Content-Type', 'application/json');
+  if(req.params.type) res.json(await vcdbFactory.reduceAttackData('VCDB', 'Incidents', req.params.type, null))
 })
 app.get('/impacts', async (req, res) => {
   res.set('Content-Type', 'application/json');
