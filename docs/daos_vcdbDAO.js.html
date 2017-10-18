@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: daos/vcdbDAO.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: daos/vcdbDAO.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+///////////////////////////////////////
+// VCDB Database Accessor Object Class
+/**
+ * @author Steven Walker-Roberts (16062582)
+ * @version v0.0.1
+ * @copyright Copyright (C) Steven Walker-Roberts 2017. MIT License.
+ */
+
+//////////////////
+// import modules
+
+//third party modules
+/** 
+ * @requires MongoClient
+ * @external MongoClient
+ * @see {@link https://www.npmjs.com/package/mongo-client}
+ */
+const MongoClient = require('mongodb').MongoClient
+
+
+/**
+ * Class for Data Accessor Object
+ * @class
+ * @memberof vcdbFactory
+ * @lends vcdbDAO.prototype
+ */
+class vcdbDAO {
+
+  ////////////////////////////////////
+  //DAO prototype function definitions
+
+  /**
+   * @constructs vcdbDAO
+   */
+  constructor(url, debug) {
+      /** 
+       * Defines an empty pool of Redis connections.
+       * @property {string} url - Connection URL for MongoDB.
+       */
+      this.url = url;
+      /** 
+       * Defines an empty pool of Redis connections.
+       * @property {boolean} url - Debug flag.
+       */
+      this.debug = 1;
+    } //end of constructor
+
+  ////////////////////
+  // Mongo accessors
+  /**
+   * Submits a search across the socket.
+   * @function vcdbDAO#getData
+   * @param {object} query - JSON query to MongoDB.
+   * @param {string} dbString - Database name.
+   * @param {string} colString - Collection name.
+   * @param {function} callback - Callback function.
+   * @returns {array} - A json array of mongo documents.
+   * @throws A database connection or not found error.
+   */
+  async getData (query, dbString, colString, callback) {
+    try {
+      //open mongo connection
+      const db = await MongoClient.connect(this.url.replace(/vcdb/gi, dbString));
+      console.log((new Date()).toISOString()+" - Connected to MongoDB on: "+this.url.replace(/vcdb/gi, dbString));
+      //open mongo collection
+      const collection = db.collection(colString);
+      //execute query
+      var docs = await collection.find(query !== null ? query : {}).toArray();
+      console.log((new Date()).toISOString()+" - Retrieved "+docs.length+" results.");
+      if(this.debug) console.log("getData");
+      if (this.debug) console.log(docs);
+      //callback
+      if (callback) callback(db, collection, docs);
+      //close db
+      db.close();
+      return docs;
+    } catch (e) { //end of try
+      console.error(e);
+    } //end of catch
+  } //end of getData function
+
+  /**
+   * Submits a search across the socket.
+   * @function vcdbDAO#aggregateData
+   * @param {string} dbString - Database name.
+   * @param {string} colString - Collection name.
+   * @param {object} match - Match query.
+   * @param {object} group - Grouping query.
+   * @param {object} sort - Sorting query.
+   * @param {object} unwind - Unwind query.
+   * @param {function} callback - Callback function.
+   * @returns {array} - A json array of mongo documents.
+   * @throws A database connection or not found error.
+   */
+  async aggregateData(dbString, colString, match, group, sort, unwind, callback) {
+    try {
+      //instantiate db connection
+      const db = await MongoClient.connect(this.url.replace(/vcdb/gi, dbString));
+      console.log((new Date()).toISOString()+" - Connected to MongoDB on: "+this.url.replace(/vcdb/gi, dbString));
+      //open mongo collection
+      const collection = await db.collection(colString);
+      //create query array
+      var queryArray = [
+        { $match: match },
+        { $group: group },
+        { $sort: sort }
+      ]; //end of declaration
+      //candidate breakpoint
+      //
+      //if unwind command exists, add it to the array
+      if(unwind) queryArray.splice(1, 0, {$unwind: unwind});
+      //execute aggregation command
+      var sample = await collection.aggregate(queryArray).toArray();
+      if(this.debug) console.log("aggregateDataDAO");
+      if (this.debug) console.log(sample);
+      //execute callback
+      if (callback) callback(db, collection, sample);
+      db.close();
+      return sample;
+    } catch (e) { //end of try
+      console.error(e);
+    } //end of catch
+  } //end of aggregateData function
+
+} //end of vcdbDAO class
+
+//////////////////
+// Export Module
+module.exports = (url, debug) => { return new vcdbDAO(url, debug) };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-vcdbControllerServer.html">vcdbControllerServer</a></li></ul><h3>Externals</h3><ul><li><a href="external-express.html">express</a></li><li><a href="external-fs.html">fs</a></li><li><a href="external-http.html">http</a></li><li><a href="external-jstat.html">jstat</a></li><li><a href="external-lodash.html">lodash</a></li><li><a href="external-MongoClient.html">MongoClient</a></li><li><a href="external-socketio.html">socketio</a></li></ul><h3>Classes</h3><ul><li><a href="actorData.html">actorData</a></li><li><a href="attackData.html">attackData</a></li><li><a href="impactData.html">impactData</a></li><li><a href="IncidentSummary.html">IncidentSummary</a></li><li><a href="vcdbControllerClient.html">vcdbControllerClient</a></li><li><a href="vcdbDAO.html">vcdbDAO</a></li><li><a href="vcdbHelper.html">vcdbHelper</a></li><li><a href="victimData.html">victimData</a></li></ul><h3>Events</h3><ul><li><a href="external-socketio.html#event:emit:actor">emit:actor</a></li><li><a href="external-socketio.html#event:emit:actorData">emit:actorData</a></li><li><a href="external-socketio.html#event:emit:attack">emit:attack</a></li><li><a href="external-socketio.html#event:emit:attackData">emit:attackData</a></li><li><a href="external-socketio.html#event:emit:impact">emit:impact</a></li><li><a href="external-socketio.html#event:emit:impactData">emit:impactData</a></li><li><a href="external-socketio.html#event:emit:initialobject">emit:initialobject</a></li><li><a href="external-socketio.html#event:emit:inspect">emit:inspect</a></li><li><a href="external-socketio.html#event:emit:inspection">emit:inspection</a></li><li><a href="external-socketio.html#event:emit:search">emit:search</a></li><li><a href="external-socketio.html#event:emit:searchData">emit:searchData</a></li><li><a href="external-socketio.html#event:emit:victim">emit:victim</a></li><li><a href="external-socketio.html#event:emit:victimData">emit:victimData</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_">_</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#debug">debug</a></li><li><a href="global.html#jstat">jstat</a></li><li><a href="global.html#server">server</a></li><li><a href="global.html#socket">socket</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 18 2017 05:52:45 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

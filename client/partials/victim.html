@@ -1,0 +1,91 @@
+<!-- victim partial -->              
+<div class="container">
+								<div class="row">
+									<h2 class="text-center">Victim Statistics</h2>
+									<!-- menu  -->
+									<div class="row space-bottom text-center">
+										<!-- ignore commands -->
+										<span ng-include="'../../partials/ignore.html'">
+										</span>
+										<!-- filter -->
+										<div ng-if="filterToggle" ng-include="'../../partials/filter.html'"></div>
+									</div>
+									<!-- charts -->
+									<div class="col-md-4 text-center" >
+										<h4>Victim Geographic Distribution</h4>
+										<span ng-if="!appState.victimData.countries.country.length">No data available.</span>
+										<canvas id="doughnut" class="chart chart-doughnut" ng-if="appState.victimData.countries.country.length"
+											chart-data="appState.victimData.countries.count" chart-options="options" chart-labels="appState.victimData.countries.country">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.victimData.countries.country.length">
+											Highest Num. Attacks: {{ appState.victimData.countries.highCount }} <br>
+											Most Frequent Country: {{  appState.victimData.countries.highcountry }}
+										</p>
+									</div>
+									<div class="col-md-4 text-center">
+										<h4>Victim Employee Count</h4>
+										<span ng-if="!appState.victimData.employeeNumbers.employee_count.length">No data available.</span>
+										<canvas id="doughnut" class="chart chart-doughnut" ng-if="appState.victimData.employeeNumbers.employee_count.length"
+											chart-data="appState.victimData.employeeNumbers.count" chart-options="options" chart-labels="appState.victimData.employeeNumbers.employee_count">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.victimData.employeeNumbers.employee_count.length">
+											Highest Frequency: {{ appState.victimData.employeeNumbers.highCount }} <br>
+											Most Frequent: {{  appState.victimData.employeeNumbers.highemployee_count }}
+										</p>
+									</div>
+									<div class="col-md-4 text-center">
+										<h4>Victim Industry Distribution</h4>
+										<span ng-if="!appState.victimData.industries.industry.length">No data available.</span>
+										<canvas id="doughnut" class="chart chart-doughnut" ng-if="appState.victimData.industries.industry.length"
+											chart-data="appState.victimData.industries.count" chart-options="options" chart-labels="appState.victimData.industries.industry">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.victimData.industries.industry.length">
+											Highest Frequency: {{ appState.victimData.industries.highCount }} <br>
+											Most Frequent: {{  appState.victimData.industries.highindustry }}
+										</p>
+									</div>
+								</div>
+								<!-- tabulated data -->
+								<div class="row">
+									<h2 class="text-center">First 40 Entries</h2>
+									<div class="col-md-4 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Country</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.victimData.countries.country.length"
+													ng-repeat="data in appState.victimData.countries.country | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.victimData.countries.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-md-4 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Employee Count</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.victimData.employeeNumbers.employee_count.length"
+													ng-repeat="data in appState.victimData.employeeNumbers.employee_count | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.victimData.employeeNumbers.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-md-4 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Industry</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.victimData.industries.industry.length"
+													ng-repeat="data in appState.victimData.industries.industry | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.victimData.industries.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>

@@ -1,0 +1,8 @@
+<!-- loading partial -->
+<span ng-if="appState.loading && !appState.fail">
+  Loading....<br />
+  <img src="/images/loading.gif" />
+</span>
+<span ng-if="appState.fail">
+  The request to the server failed. <a href="#" ng-click="recover()">Click here</a> to recover.<br />
+</span>

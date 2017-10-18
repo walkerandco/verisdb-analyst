@@ -1,0 +1,129 @@
+<!-- attack partial -->              
+<div class="container">
+									<div class="row">
+										<h2 class="text-center">Attack Statistics</h2>
+									<!-- menu -->
+									<div class="row space-bottom text-center">
+										<span>
+											<a href="#" ng-click="getAttackData('malware', appState.match, appState.removeUnknown)">Malware</a> |
+											<a href="#" ng-click="getAttackData('hacking', appState.match, appState.removeUnknown)">Hacking</a> |
+											<a href="#" ng-click="getAttackData('social', appState.match, appState.removeUnknown)">Social</a> |
+											<a href="#" ng-click="getAttackData('physical', appState.match, appState.removeUnknown)">Physical</a> |
+											<a href="#" ng-click="getAttackData('misuse', appState.match, appState.removeUnknown)">Misuse</a> |
+											<a href="#" ng-click="getAttackData('error', appState.match, appState.removeUnknown)">Error</a> |
+											<a href="#" ng-click="getAttackData('environmental', appState.match, appState.removeUnknown)">Environmental</a> |
+											<!-- ignore commands -->
+											<span ng-include="'../../partials/ignore.html'">
+											</span>
+										</span>
+										<!-- filter -->
+										<div ng-if="filterToggle" ng-include="'../../partials/filter.html'"></div>
+									</div>
+									<!-- charts -->
+									<div class="col-md-3 text-center">
+										<h4>Attack Variety</h4>
+										<span ng-if="!appState.attackData.varieties.variety.length">No data available.</span>
+										<canvas ng-if="appState.attackData.varieties.variety" id="doughnut" class="chart chart-doughnut"
+											chart-data="appState.attackData.varieties.count" chart-options="options" chart-labels="appState.attackData.varieties.variety">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.attackData.varieties.variety.length">
+											Highest Number: {{ appState.attackData.varieties.highCount }} <br>
+											Most Frequent: {{  appState.attackData.varieties.highvariety }}
+										</p>
+									</div>
+									<div class="col-md-3 text-center">
+										<h4>Attack Type</h4>
+										<span ng-if="!appState.attackData.types.type.length">No data available.</span>
+										<canvas ng-if="appState.attackData.types.type" id="doughnut" class="chart chart-doughnut"
+											chart-data="appState.attackData.types.count" chart-options="options" chart-labels="appState.attackData.types.type">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.attackData.types.type.length">
+											Highest Frequency: {{ appState.attackData.types.highCount }} <br>
+											Most Frequent: {{  appState.attackData.types.hightype }}
+										</p>
+									</div>										
+									<div class="col-md-3 text-center">
+										<h4>Attack Vector</h4>
+										<span ng-if="!appState.attackData.vectors.vector.length">No data available.</span>
+										<canvas ng-if="appState.attackData.vectors.vector" id="doughnut" class="chart chart-doughnut"
+											chart-data="appState.attackData.vectors.count" chart-options="options" chart-labels="appState.attackData.vectors.vector">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.attackData.vectors.vector.length">
+											Highest Frequency: {{ appState.attackData.vectors.highCount }} <br>
+											Most Frequent: {{  appState.attackData.vectors.highvector }}
+										</p>
+									</div>
+									<div class="col-md-3 text-center">
+										<h4>Attack Assets</h4>
+										<canvas ng-if="appState.attackData.assets.asset.length" id="doughnut" class="chart chart-doughnut"
+											chart-data="appState.attackData.assets.count" chart-options="options" chart-labels="appState.attackData.assets.asset">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.attackData.assets.asset.length">
+											Highest Frequency: {{ appState.attackData.assets.highCount }} <br>
+											Most Frequent: {{  appState.attackData.assets.highasset }}
+										</p>
+									</div>
+									<div class="col-md-12 text-center">
+										<h4>Attack Discovery</h4>
+										<canvas ng-if="appState.attackData.discoveries.discovery.length" id="bar" class="chart chart-bar"
+														chart-data="appState.attackData.discoveries.count" chart-labels="appState.attackData.discoveries.discovery">
+										</canvas>
+									</div>
+								</div>
+								<!-- tabulated data -->
+								<div class="row">
+									<h2 class="text-center">First 40 Entries</h2>
+									<div class="col-md-3 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Variety</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.attackData.varieties.variety.length"
+													ng-repeat="data in appState.attackData.varieties.variety | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.attackData.varieties.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-md-3 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Types</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.attackData.types.type.length"
+													ng-repeat="data in appState.attackData.types.type | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.attackData.types.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-md-3 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Vectors</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.attackData.vectors.vector.length"
+													ng-repeat="data in appState.attackData.vectors.vector | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.attackData.vectors.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-md-3 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Assets</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.attackData.assets.asset.length"
+													ng-repeat="data in appState.attackData.assets.asset | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.attackData.assets.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>

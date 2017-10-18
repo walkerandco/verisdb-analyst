@@ -1,0 +1,64 @@
+<!-- search partial -->              
+<div class="container">
+                <div class="row">
+                  <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+                    <div class="intro ">
+                      <h2>Search the dataset:</h2>
+											<div class="input-group container-fluid">
+												 <input id="query" class="form-control container-fluid" type="text" ng-model="appState.query" 
+																ng-change="appState.match=appState.query" ng-keyup="$event.keyCode == 13 ? search() : null">
+												 <span class="input-group-addon" ng-click="clear()" ng-if="appState.query"><b>X</b></span>
+											</div>
+											<!-- loading indicator -->
+											<span ng-if="appState.loading && appState.mode === 'search'">
+												Loading results....<br />
+												<img src="/images/loading.gif" />
+											</span>
+											<!-- no results found -->
+											<span ng-if="appState.searchReturned && !appState.searchData.length>=1 && appState.query">
+												No data returned.
+											</span>
+											<!-- number of results -->
+											<span ng-if="appState.searchReturned && appState.searchData.length>=1 && appState.query">
+												{{ appState.searchData.length }} results returned.
+											</span>
+                    </div>
+                  </div>
+									<!-- results table -->
+									<div ng-if="appState.searchReturned && appState.searchData.length>=1 && appState.query" class="text-center">
+											<table class="table-striped distance-table">
+												<thead>
+													<th>Date</th>
+													<th>Victim</th>
+													<th>Discovery</th>
+													<th>Actor</th>
+													<th>Asset</th>
+													<th>Industry</th>
+													<th>Country</th>
+													<th>Reference</th>
+													<th>Summary</th>
+												</thead>
+												<tr ng-repeat="obj in appState.searchData">
+													<td><span ng-if="obj.date.day && obj.date.month">{{obj.date.year+'/'+obj.date.month+'/'+obj.date.day }}</span>
+														  <span ng-if="obj.date.month && obj.date.year && !obj.date.day">{{obj.date.year+'/'+obj.date.month}}</span>
+														  <span ng-if="obj.date.year && !obj.date.month">{{obj.date.year}}</span>
+													</td>
+													<td>{{ obj.victim }}</td>
+													<td>{{ obj.discovery }}</td>
+													<td >{{ obj.actor }}</td>
+													<td>{{ obj.asset }}</td>
+													<td>{{ obj.victim }}</td>
+													<td>{{ obj.country }}</td>
+													<td><a ng-href="{{ obj.reference }}">URL</a></td>
+													<td hm-read-more
+													hm-text="{{ obj.summary }}" 
+													hm-limit="15" 
+													hm-more-text="read more" 
+													hm-less-text="read less"
+													hm-dots-class="dots"
+													hm-link-class="links"></td>
+												</tr>
+											</table>												
+									</div>
+                </div>
+              <div>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/attackData.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/attackData.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+////////////////////////////////
+// attackData Object Class
+/**
+ * @author Steven Walker-Roberts
+ * @version v0.0.1
+ * @copyright Copyright (C) Steven Walker-Roberts 2017. MIT License.
+ */
+
+//////////////////
+// import modules
+
+/////////////////////////////
+// Define object properties
+
+/**
+ * Class for attackData object.
+ * @class
+ * @memberof vcdbFactory
+ * @lends attackData.prototype
+ */
+class attackData { 
+
+  /**
+   * @constructs attackData
+   * @param {array} varieties - Array of attack varieties.
+   * @param {array} varietiesCount - Array of frequencies for each variety.
+   * @param {array} types - Array of employee numbers.
+   * @param {array} typesCount - Aray of frequencies for each employee count.
+   * @param {array} vectors - Array of attack vectors.
+   * @param {array} vectorsCount - Array of frequencies for each vector.
+   * @param {array} assets - Array of attack assets.
+   * @param {array} assetsCount - Array of frequencies for each asset.
+   * @param {array} discoveries - Array of attack discoveries.
+   * @param {array} discoveriesCount - Array of frequencies for each discovery.
+   */
+  constructor (varieties, varietiesCount, types, typesCount, vectors, vectorsCount, assets, assetsCount, discoveries, discoveriesCount) {
+   /**
+    * @property {object} varieties - Data object storing variety information.
+    */
+    this.varieties = { variety: varieties, count: varietiesCount };
+   /**
+    * @property {object} vectors - Data object storing variety information.
+    */
+    this.vectors = { vector: vectors, count: vectorsCount };
+   /**
+    * @property {object} varieties - Data object storing variety information.
+    */
+    this.types = { type: types, count: typesCount };
+   /**
+    * @property {object} assets - Data object storing variety information.
+    */
+    this.assets = { asset: assets, count: assetsCount };
+    /**
+    * @property {object} discoveries - Data object storing discovery information.
+    */
+    this.discoveries = { discovery: discoveries, count: discoveriesCount };
+    
+  } //end of constructor
+
+  //cascaded object create function for attackData (technically a factory)
+  /**
+   * Alternative copy constructor.
+   * @function attackData#createattackData
+   * @param {object} object - Contains attackData properties.
+   */
+ createattackData(object) {
+    if(object.type==="attackData"){
+      return new attackData(object.varieties, object.varietiesCount, object.types, object.typesCount, object.vectors, 
+                            object.vectorsCount, object.assets, object.assetsCount, object.discoveries, object.discoveriesCount);
+    } else { //end of if
+      //if type is not attackData, write error to console and return error for handling
+      console.log("Error: Invalid Type");
+      return -1; 
+    } //end of else
+  } //end of createattackData method
+  
+  /**
+   * Returns a string representation of object.
+   * @function attackData#toString
+   * @returns String representation of class.
+   */
+    toString() {
+      return (JSON.stringify(this.object));
+    }
+} //end of attackDatas class
+
+//////////////////
+// export module
+module.exports = attackData;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-vcdbControllerServer.html">vcdbControllerServer</a></li></ul><h3>Externals</h3><ul><li><a href="external-express.html">express</a></li><li><a href="external-fs.html">fs</a></li><li><a href="external-http.html">http</a></li><li><a href="external-jstat.html">jstat</a></li><li><a href="external-lodash.html">lodash</a></li><li><a href="external-MongoClient.html">MongoClient</a></li><li><a href="external-socketio.html">socketio</a></li></ul><h3>Classes</h3><ul><li><a href="actorData.html">actorData</a></li><li><a href="attackData.html">attackData</a></li><li><a href="impactData.html">impactData</a></li><li><a href="IncidentSummary.html">IncidentSummary</a></li><li><a href="vcdbControllerClient.html">vcdbControllerClient</a></li><li><a href="vcdbDAO.html">vcdbDAO</a></li><li><a href="vcdbHelper.html">vcdbHelper</a></li><li><a href="victimData.html">victimData</a></li></ul><h3>Events</h3><ul><li><a href="external-socketio.html#event:emit:actor">emit:actor</a></li><li><a href="external-socketio.html#event:emit:actorData">emit:actorData</a></li><li><a href="external-socketio.html#event:emit:attack">emit:attack</a></li><li><a href="external-socketio.html#event:emit:attackData">emit:attackData</a></li><li><a href="external-socketio.html#event:emit:impact">emit:impact</a></li><li><a href="external-socketio.html#event:emit:impactData">emit:impactData</a></li><li><a href="external-socketio.html#event:emit:initialobject">emit:initialobject</a></li><li><a href="external-socketio.html#event:emit:inspect">emit:inspect</a></li><li><a href="external-socketio.html#event:emit:inspection">emit:inspection</a></li><li><a href="external-socketio.html#event:emit:search">emit:search</a></li><li><a href="external-socketio.html#event:emit:searchData">emit:searchData</a></li><li><a href="external-socketio.html#event:emit:victim">emit:victim</a></li><li><a href="external-socketio.html#event:emit:victimData">emit:victimData</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_">_</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#debug">debug</a></li><li><a href="global.html#jstat">jstat</a></li><li><a href="global.html#server">server</a></li><li><a href="global.html#socket">socket</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 18 2017 05:52:45 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

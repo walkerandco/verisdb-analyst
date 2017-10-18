@@ -1,0 +1,106 @@
+<!-- actor partial -->              
+<div class="container">
+									<div class="row">
+										<h2 class="text-center">Actor Statistics</h2>				
+									<!-- menu -->
+									<div class="row space-bottom text-center">
+										<span>
+											<a href="#" ng-click="getActorData('internal', appState.match, appState.removeUnknown)">Internal</a> |
+											<a href="#" ng-click="getActorData('external', appState.match, appState.removeUnknown)">External</a> |
+											<a href="#" ng-click="getActorData('partner', appState.match, appState.removeUnknown)">Partner</a> |
+											<!-- ignore commands -->
+											<span ng-include="'../../partials/ignore.html'">
+											</span>
+										</span>
+										<!-- filter -->
+										<div ng-if="filterToggle" ng-include="'../../partials/filter.html'"></div>
+									</div>
+								<!-- charts -->
+									<div class="col-md-3 text-center">
+										<h4>Actor Geographic Distribution</h4>
+										<span ng-if="!appState.actorData.countries.country.length">No data available.</span>
+										<canvas ng-if="appState.actorData.countries.country" id="doughnut" class="chart chart-doughnut"
+											chart-data="appState.actorData.countries.count" chart-options="options" chart-labels="appState.actorData.countries.country">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.actorData.countries.country.length">
+											Highest Number: {{ appState.actorData.countries.highCount }} <br>
+											Most Frequent: {{  appState.actorData.countries.highcountry }}
+										</p>
+									</div>
+									<div class="col-md-3 text-center">
+										<h4>Actor Motive Count</h4>
+										<span ng-if="!appState.actorData.motives.motive.length">No data available.</span>
+										<canvas ng-if="appState.actorData.motives.motive" id="doughnut" class="chart chart-doughnut"
+											chart-data="appState.actorData.motives.count" chart-options="options" chart-labels="appState.actorData.motives.motive">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.actorData.motives.motive.length">
+											Highest Frequency: {{ appState.actorData.motives.highCount }} <br>
+											Most Frequent: {{  appState.actorData.motives.highmotive }}
+										</p>
+									</div>
+									<div class="col-md-3 text-center">
+										<h4>Actor Variety</h4>
+										<span ng-if="!appState.actorData.varieties.variety.length">No data available.</span>
+										<canvas ng-if="appState.actorData.varieties.variety" id="doughnut" class="chart chart-doughnut"
+											chart-data="appState.actorData.varieties.count" chart-options="options" chart-labels="appState.actorData.varieties.variety">
+										</canvas>
+										<p class="ng-cloak" ng-if="appState.actorData.varieties.variety.length">
+											Highest Frequency: {{ appState.actorData.varieties.highCount }} <br>
+											Most Frequent: {{  appState.actorData.varieties.highvariety }}
+										</p>
+									</div>
+									<div class="col-md-3 text-center">
+										<h4>Actor Type Distribution</h4>
+										<canvas id="bar" class="chart chart-polar-area"
+											chart-data="[appState.actorData.internalCount, appState.actorData.externalCount, appState.actorData.partnerCount]" chart-labels="['Internal', 'External', 'Partner']" 
+														chart-series="['Internal', 'External', 'Partner']"></canvas>
+										<p class="ng-cloak">
+											Highest Frequency: {{ appState.actorData.highCount }} <br>
+											Most Frequent: {{  appState.actorData.highType }}
+										</p>
+									</div>
+								</div>
+								<!-- tabulated data -->
+								<div class="row">
+									<h2 class="text-center">First 40 Entries</h2>
+									<div class="col-md-4 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Country</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.actorData.countries.country.length"
+													ng-repeat="data in appState.actorData.countries.country | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.actorData.countries.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-md-4 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Motive</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.actorData.motives.motive.length"
+													ng-repeat="data in appState.actorData.motives.motive | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.actorData.motives.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-md-4 text-center">
+										<table class="table-striped distance-table">
+											<thead>
+												<th>Variety</th>
+												<th>#</th>
+											</thead>
+											<tr ng-if="appState.actorData.varieties.variety.length"
+													ng-repeat="data in appState.actorData.varieties.variety | limitTo: 40">
+												<td>{{ data }}</td>
+												<td>{{ appState.actorData.varieties.count[$index] }}</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>

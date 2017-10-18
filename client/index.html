@@ -1,0 +1,159 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+				
+				<!-- page metadata -->
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+				<meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">		
+			
+				<!-- page title -->
+        <title>VerisDB Analyst</title>
+      
+				<!-- browser helpers -->
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+
+        <link rel="stylesheet" href="css/normalize.css">
+      	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700|Roboto:300,400' rel='stylesheet' type='text/css'>
+	
+        <!-- Animate.css -->
+        <link rel="stylesheet" href="css/animate.css">
+        <!-- Icomoon Icon Fonts-->
+        <link rel="stylesheet" href="css/icomoon.css">
+        <!-- Bootstrap  -->
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/main.css">
+			
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <!-- application content -->
+        	<div class="box-wrap" ng-app="vcdb" ng-controller="vcdbControllerClient" ng-cloak>
+						<!-- start header -->
+            <header role="banner" id="fh5co-header">
+              <div class="container">
+                <nav class="navbar navbar-default">
+                  <div class="row">
+                    <div class="col-md-3">
+											<!-- logo -->
+                      <div class="fh5co-navbar-brand">
+                        <b>VerisDB Analyst</b>
+                      </div>
+                   	</div>
+										<!-- menu -->
+                    <div class="col-md-9">
+                      <ul class="nav text-center" >
+												<li><a ng-click="mode('search')"><span>Search</span></a></li>
+                        <li><a ng-click="getActorData('internal', appState.match)"><span>Actors</span></a></li>
+												<li><a ng-click="getAttackData('malware', appState.match)"><span>Attacks</span></a></li>
+												<li><a ng-click="getImpactData(appState.match)"><span>Impact</span></a></li>
+												<li><a ng-click="getVictimData(appState.match)"><span>Victims</span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+				<div class="col-md-3"></div>
+                </nav>
+              </div>
+            </header>
+            <!-- END: header -->
+						
+			<!-- loading indicator -->
+			<div class="text-center" 	ng-include="'/../../partials/loading.html'"></div>
+
+			<!-- search partial -->
+			<section class="distance" ng-if="appState.mode==='search' && !appState.loading" ng-include="'/../../partials/search.html'">
+			</section>
+			<!-- end search partial -->
+			
+			<!-- actor partial -->
+			<section id="services" class="distance" ng-if="appState.mode ==='actor' && !appState.loading" 
+							 ng-include="'/../../partials/actor.html'">
+			</section>
+			<!-- end actor partial --!>	
+
+			<!-- attack partial -->
+			<section id="services" class="distance" ng-if="appState.mode ==='attack' && !appState.loading" 
+							 ng-include="'/../../partials/attack.html'">
+			</section>
+			<!-- end attack partial --!>
+			
+			<!-- impact partial -->
+			<section id="services" class="distance" ng-if="appState.mode ==='impact' && !appState.loading" 
+							 ng-include="'/../../partials/impact.html'">
+			</section>
+			<!-- end impact partial --!>
+					
+			<!-- victim partial -->
+			<section id="services" class="distance" ng-if="appState.mode ==='victim' && !appState.loading"
+							  ng-include="'/../../partials/victim.html'">	
+			</section>
+			<!-- end victim partial -->
+								
+			<!-- lower page -->
+            <section id="services" class="distance" ng-if="!appState.query && appState.mode === 'search' && !appState.loading">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-4 ">
+                    <div class="service">
+                      <div class="service-icon">
+                        <i class="icon-cloud2"></i>
+                      </div>
+                      <h2>Realtime Data</h2>	
+                      <p>With VerisDB Analyst, you can search the dataset in realtime because the application is isomorphic. If you have a rapidly changing dataset, you can easily view changes in realtime.</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="service">
+                      <div class="service-icon">
+                        <i class="icon-drop2"></i>
+                      </div>
+                      <h2>Comprehensive Charting</h2>
+                      <p>The charts included with VerisDB Analyst are comprehensive and provide a broad view of any VERIS dataset in realtime. The official dataset is included by default.</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="service">
+                      <div class="service-icon">
+                        <i class="icon-anchor"></i>
+                      </div>
+                      <h2>Advanced Search Capability</h2>
+                      <p>VerisDB Analyst supports direct MongoDB search queries and so data can be searched and filtered with tailored searches.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+						<!-- end lower page -->
+						
+						<!-- begin footer -->
+            <footer id="footer" role="contentinfo">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12 text-center ">
+                    <div class="footer-widget border">
+                      <p class="pull-left"><small>Copyright &copy; <a href="https://steven.walkerroberts.co.uk/">Steven Walker-Roberts 2017</a>. All Rights Reserved.<br />The database and schema are used under license from <a href="https://github.com/vz-risk/VCDB">vz-risk/vcdb</a>. The code and software for this server is subject to the MIT license.</small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </footer>
+						<!-- end footer -->
+          </div>
+          <!-- end of content -->
+
+				<!-- script includes - at end to prevent ui blocking -->
+        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+    </body>
+</html>

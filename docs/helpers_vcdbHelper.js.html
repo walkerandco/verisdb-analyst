@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: helpers/vcdbHelper.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: helpers/vcdbHelper.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+///////////////////////////////////////
+// VCDB Helper Object Class
+/**
+ * @author Steven Walker-Roberts (16062582)
+ * @version v0.0.1
+ * @copyright Copyright (C) Steven Walker-Roberts 2017. MIT License.
+ */
+
+//////////////////
+// import modules
+/** 
+ * @requires jstat
+ * @external jstat
+ * @see {@link https://www.npmjs.com/package/jstat}
+ */
+const jstat = require('jstat');
+/** 
+ * @requires lodash
+ * @external lodash
+ * @see {@link https://www.npmjs.com/package/lodash}
+ */
+const _ = require('lodash');
+ 
+/**
+ * Class for VCDB Helpers
+ * @class
+ * @memberof vcdbFactory
+ * @lends vcdbHelper.prototype
+ */
+class vcdbHelper {
+  /**
+   * @constructs vcdbHelper
+   */
+  constructor(debug) {
+      /** 
+       * Defines an empty pool of Redis connections.
+       * @property {boolean} url - Debug flag.
+       */
+      this.debug = debug;
+    } //end of constructor
+
+	////////////////////
+	// Data Helpers
+	/**
+	 * Converts currency using values obtained in vcdbFactory.
+	 * @function vcdbHelper#convertCurrency
+	 * @param {number} item - Value to be converted.
+	 * @param {array} currencies - Currencies list.
+	 * @returns {number} value - Converted currency valued in USD.
+	 */
+	 async convertCurrency(item, currencies){
+		 for(var i in currencies){
+			 if(currencies[i].id === item.currency+"USD"){
+				 item.amount *= currencies[i].Rate;
+			 } //end of if
+		 } //end of for
+		 if(this.debug) console.log(convertCurrency);
+		 if(this.debug) console.log(item);
+		 return item;
+	 }
+	 
+	/**
+	 * Orders timeseries data.
+	 * @function vcdbHelper#sortTimeSeries
+	 * @param {array} time - The array of time to be ordered.
+	 * @param {array} values - Value array to be secondarily ordered.
+	 * @returns {array} sorted - Sorted timeseries data.
+	 */
+	 sortTimeSeries(time, values){
+		//merge arrays
+		var unsorted = _.zip(time, values);
+		//sort in ascending order
+		var sorted = unsorted.sort(function (a,b){
+			if (b[0] === a[0]) {
+				return b[0] &lt; a[0] ? 1 : b[0] > a[0] ? -1 : 0;
+			} //end of if
+			return a[0] - b[0];
+		}); //end of sort function
+		//separate arrays
+		var unzipped = _.unzip(sorted);
+		//log and return
+		console.log("sortTimeSeries");
+		console.log(unzipped);
+		return unzipped;
+	 }
+	
+	/**
+	 * Calculates and stores the maximum count value and its corresponding key.
+	 * @function vcdbHelper#getMax
+	 * @param {array} data - Source data.
+	 * @param {array} comparator - Comparator array.
+	 * @param {string} plural - Plural of property.
+	 * @param {string} singular - Property of key.
+	 */	
+	getMax (data, comparator, plural, singular){
+		try {
+			if(singular){
+				//get max value in data
+				data[plural]['highCount'] = jstat.max(comparator);
+				//get key for max value
+				data[plural]['high'+singular] = data[plural][singular][_.findIndex(comparator, (item)=>(item === data[plural]['highCount']))];
+			//will attempt to parse using singular, if no singular, will search 'types'
+			} else { //end of if
+				//get the max value in data
+				data[plural]['highCount'] = jstat.max(comparator);
+				//find key for max value
+				data[plural]['highType'] = data[plural]['types'][_.findIndex(comparator, (item)=>(item === data[plural]['highCount']))];
+			} //end of else
+		} catch (e) { //end of try
+			console.error(e);
+		} //end of catch
+	} //end of getMax function
+	
+	/**
+	 * Populates arrays within class instances for returned aggregations from mongo.
+	 * @function vcdbHelper#mapArray
+	 * @param {array} source - Source of aggregated data from MongoDB.
+	 * @param {array} destination - Destination array of sorted aggregation.
+	 * @param {string} property - The property to operate on.
+	 * @param {string} label - Aggregated data label.
+	 * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
+	 * @throws A parsing error.
+	 * @returns {object} - Destination object.
+	 */
+	mapArray (source, destination, property, label, removeUnknown) {
+		try {
+			//sort aggregated arrays into sensible order
+				source.forEach((val) => {
+							destination[property][label].push(val._id);
+							destination[property]['count'].push(val['count']);
+				}); //end of forEach
+			//flatten nested arrays
+			if(destination[property][label]){
+				destination[property][label] = _.flattenDeep(destination[property][label]);
+			} //end of if
+			//remove duplicates
+			var removed = this.removeDuplicates(destination[property][label], destination[property]['count'], removeUnknown);
+			destination[property][label] = removed.keys;
+			destination[property]['count'] = removed.values;
+			//add statistical analytics
+			this.getMax(destination, destination[property]['count'], property, label);
+			//log and return
+			if(this.debug) console.log("mapArray");
+			if(this.debug) console.log(destination);
+			return destination;
+		} catch (e) { //end of try
+			console.error(e);
+		} //end of catch
+	} //end of mapArray function
+
+	/**
+	 * Removes duplicate and extraneous data.
+	 * @function vcdbHelper#removeDuplicates
+	 * @param {array} sourceKeys - Arrays of keys.
+	 * @param {array} sourceVals - Array of values.
+	 * @param {boolean} removeUnknown - Whether to exclude reported unknown values.
+	 * @returns {object} - An object containing keys and values with duplicates removed.
+	 */
+	removeDuplicates (sourceKeys, sourceVals, removeUnknown) {
+		try{
+			//create temporaries
+			var obj = {};
+			var keyArr = [];
+			var valArr = [];
+			//iterate array and check for duplicates, add if duplicate
+			sourceKeys.forEach((item, i) => {
+				if(removeUnknown &amp;&amp; (item === "Unknown" || item === "NA") || item === "null") console.log("Unknown key ignored");
+				else if(!obj.hasOwnProperty(item)) obj[item] = sourceVals[i];
+				else obj[item] += sourceVals[i];
+			}); //end of forEach
+			//convert object to two arrays
+			Object.keys(obj).forEach((key) => {
+				keyArr.push(key);
+				valArr.push(obj[key]);
+			}); //end of forEach
+			if(this.debug) console.log("removeDuplicates");
+			if(this.debug) console.log({keys: keyArr, values: valArr});
+			return {keys: keyArr, values: valArr};
+		} catch (e) { //end of try
+			console.error(e);
+		} //end of catch
+	} //end of removeDuplicates function
+} //end of vcdbHelper class
+
+//////////////////
+// Export Module
+module.exports = (debug) => { return new vcdbHelper(debug); };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-vcdbControllerServer.html">vcdbControllerServer</a></li></ul><h3>Externals</h3><ul><li><a href="external-express.html">express</a></li><li><a href="external-fs.html">fs</a></li><li><a href="external-http.html">http</a></li><li><a href="external-jstat.html">jstat</a></li><li><a href="external-lodash.html">lodash</a></li><li><a href="external-MongoClient.html">MongoClient</a></li><li><a href="external-socketio.html">socketio</a></li></ul><h3>Classes</h3><ul><li><a href="actorData.html">actorData</a></li><li><a href="attackData.html">attackData</a></li><li><a href="impactData.html">impactData</a></li><li><a href="IncidentSummary.html">IncidentSummary</a></li><li><a href="vcdbControllerClient.html">vcdbControllerClient</a></li><li><a href="vcdbDAO.html">vcdbDAO</a></li><li><a href="vcdbHelper.html">vcdbHelper</a></li><li><a href="victimData.html">victimData</a></li></ul><h3>Events</h3><ul><li><a href="external-socketio.html#event:emit:actor">emit:actor</a></li><li><a href="external-socketio.html#event:emit:actorData">emit:actorData</a></li><li><a href="external-socketio.html#event:emit:attack">emit:attack</a></li><li><a href="external-socketio.html#event:emit:attackData">emit:attackData</a></li><li><a href="external-socketio.html#event:emit:impact">emit:impact</a></li><li><a href="external-socketio.html#event:emit:impactData">emit:impactData</a></li><li><a href="external-socketio.html#event:emit:initialobject">emit:initialobject</a></li><li><a href="external-socketio.html#event:emit:inspect">emit:inspect</a></li><li><a href="external-socketio.html#event:emit:inspection">emit:inspection</a></li><li><a href="external-socketio.html#event:emit:search">emit:search</a></li><li><a href="external-socketio.html#event:emit:searchData">emit:searchData</a></li><li><a href="external-socketio.html#event:emit:victim">emit:victim</a></li><li><a href="external-socketio.html#event:emit:victimData">emit:victimData</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_">_</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#debug">debug</a></li><li><a href="global.html#jstat">jstat</a></li><li><a href="global.html#server">server</a></li><li><a href="global.html#socket">socket</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Oct 18 2017 05:52:45 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
