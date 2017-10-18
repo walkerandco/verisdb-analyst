@@ -1,5 +1,5 @@
-# verisdb-analyst
-An application for realtime visual and interactive analysis of VERISDB incident data. The server uses isomorphic javascript and mongodb to analyse the data at lightning fast speeds.
+# VERISDB Analyst
+An application for realtime visual and interactive analysis of VERISDB incident data. The server uses isomorphic javascript and mongodb to analyse the data at lightning fast speeds. This application provides a web interface which analyses a VERIS dataset in realtime. Updates can be push to the client via sockets which make the application dramatically more flexible than conventional solutions. The primary purpose of this application is to provide a simple specialised tool for analysing incident data. The application starts a webservice which can be accessed via single page web application with a server running in the background, or you can curl requests to it. The application employs the MapReduce design pattern because the focus of this software is to digest the VERISDB incident data in its standard schema and produce summarised incident data for use in the real world. Contributions would be much appreciated.
 
 # TODO (est. December 2017)
 2. Add unit tests for Travis.
