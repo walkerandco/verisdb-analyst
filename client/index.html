@@ -67,18 +67,18 @@
 			<div class="text-center" 	ng-include="'/../../partials/loading.html'"></div>
 
 			<!-- search partial -->
-			<section class="distance" ng-if="appState.mode==='search' && !appState.loading" ng-include="'/../../partials/search.html'">
+			<section class="distance" ng-if="appState.mode==='search'" ng-include="'/../../partials/search.html'">
 			</section>
 			<!-- end search partial -->
 			
 			<!-- actor partial -->
-			<section id="services" class="distance" ng-if="appState.mode ==='actor' && !appState.loading" 
+			<section id="services" class="distance" ng-if="appState.mode ==='actor'"
 							 ng-include="'/../../partials/actor.html'">
 			</section>
 			<!-- end actor partial --!>	
 
 			<!-- attack partial -->
-			<section id="services" class="distance" ng-if="appState.mode ==='attack' && !appState.loading" 
+			<section id="services" class="distance" ng-if="appState.mode ==='attack'" 
 							 ng-include="'/../../partials/attack.html'">
 			</section>
 			<!-- end attack partial --!>

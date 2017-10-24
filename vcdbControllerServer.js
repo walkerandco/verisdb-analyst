@@ -77,13 +77,25 @@ app.get('/attacks/:type', async (req, res) => {
   res.set('Content-Type', 'application/json');
   if(req.params.type) res.json(await vcdbFactory.reduceAttackData('VCDB', 'Incidents', req.params.type, null))
 })
+app.post('/attacks/:type/query', jsonParser, async (req, res) => {
+	if (!req.body) res.sendStatus(400);
+	else res.json(await vcdbFactory.reduceAttackData('VCDB', 'Incidents', req.params.type, req.body.match))
+})
 app.get('/impacts', async (req, res) => {
   res.set('Content-Type', 'application/json');
   res.json(await vcdbFactory.reduceImpactData('VCDB', 'Incidents', null));
 })
+app.post('/impacts/query', jsonParser, async (req, res) => {
+	if (!req.body) res.sendStatus(400);
+    else res.json(await vcdbFactory.reduceImpactData('VCDB', 'Incidents', req.body.match));
+})
 app.get('/victims', async (req, res) => {
   res.set('Content-Type', 'application/json');
   res.json(await vcdbFactory.reduceVictimData('VCDB', 'Incidents', null));
+})
+app.post('/victims/query', jsonParser, async (req, res) => {
+	if (!req.body) res.sendStatus(400);
+	else res.json(await vcdbFactory.reduceVictimData('VCDB', 'Incidents', req.body.match));
 })
 app.post('/query', jsonParser, async (req, res) => {
 	if (!req.body) res.sendStatus(400);

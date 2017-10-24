@@ -72,31 +72,6 @@
 										</p>
 									</div>
 								</div>
-								<!-- impact stats charts -->
-								<div class="row">
-									<div class="col-md-6 text-center">
-										<h4>Impact Varieties</h4>
-										<span ng-if="!appState.impactData.varieties.variety.length">No data available.</span>
-										<canvas ng-if="appState.impactData.varieties.variety.length" id="doughnut" class="chart chart-doughnut"
-											chart-data="appState.impactData.varieties.count" chart-options="options" chart-labels="appState.impactData.varieties.variety">
-										</canvas>
-										<p class="ng-cloak" ng-if="appState.impactData.varieties.variety.length">
-											Highest Number: {{ appState.impactData.varieties.highCount }} <br>
-											Most Frequent: {{  appState.impactData.varieties.highvariety }}
-										</p>
-									</div>
-									<div class="col-md-6 text-center">
-										<h4>Impact Ratings</h4>
-										<span ng-if="!appState.impactData.ratings.rating.length">No data available.</span>
-										<canvas ng-if="appState.impactData.ratings.rating.length" id="doughnut" class="chart chart-doughnut"
-											chart-data="appState.impactData.ratings.count" chart-options="options" chart-labels="appState.impactData.ratings.rating">
-										</canvas>
-										<p class="ng-cloak" ng-if="appState.impactData.ratings.rating.length">
-											Highest Frequency: {{ appState.impactData.ratings.highCount }} <br>
-											Most Frequent: {{  appState.impactData.ratings.highrating }}
-										</p>
-									</div>
-								</div>
 								<!-- timeseries data -->
 								<div class="row">
 									<div class="col-md-6 text-center">
