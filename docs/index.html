@@ -43,7 +43,8 @@
 
 
     <section>
-        <article><h1>VERISDB Analyst</h1><p>An application for realtime visual and interactive analysis of VERISDB incident data. The server uses isomorphic javascript and mongodb to analyse the data at lightning fast speeds. This application provides a web interface which analyses a VERIS dataset in realtime. Updates can be push to the client via sockets which make the application dramatically more flexible than conventional solutions. The primary purpose of this application is to provide a simple specialised tool for analysing incident data. The application starts a webservice which can be accessed via single page web application with a server running in the background, or you can curl requests to it. The application employs the MapReduce design pattern because the focus of this software is to digest the VERISDB incident data in its standard schema and produce summarised incident data for use in the real world. Contributions would be much appreciated.</p>
+        <article><h1>VERISDB Analyst</h1><p>An application for realtime visual and interactive analysis of VERISDB incident data. The server uses isomorphic javascript and MongoDB to analyse the data at lightning fast speeds. This application provides a web interface which analyses a VERIS dataset in realtime. Updates can be pushed to the client via sockets which make the application dramatically more flexible than conventional solutions. The primary purpose of this application is to provide a simple specialised tool for analysing incident data. The application starts a webservice which can be accessed via a single page web application with a server running in the background, or you can <code>curl</code> requests to it. The application employs the MapReduce design pattern because the focus of this software is to digest the VERISDB incident data in its standard schema and produce summarised incident data for use in the real world. Contributions would be much appreciated. Some of the functions are somewhat hacky because the schema of VERIS is non-standard and does not strictly comply with the JSON specification because some of the keys and values are stored in object names and not primitive types. When this application was produced, this was raised with the team maintaining VERIS. When the schema changes, this application will change to reflect the updated schema. Until then, it may be difficult to work with the dataset in a uniform way, thus there is unnecessary duplication within the codebase.</p>
+<p>This was produced as part of a research program at the Manchester Metropolitan University as regards internal threats and the emerging paradigm of zero-trust / unprivileged computer security.</p>
 <h1>TODO (est. December 2017)</h1><ol>
 <li>Add unit tests for Travis.</li>
 <li>Publish to npm.</li>
@@ -55,7 +56,16 @@
 <h1>Usage</h1><pre class="prettyprint source"><code>Example
 >node vcdbControllerServer.js mongourl
 
-mongourl: The string you use to connect to your server.</code></pre><h1>Installation</h1><p>Ensure you are using the most recent versions of Node.JS and MongoDB. Download the joined JSON data file from here: https://github.com/walkerandco/VCDB-JSON-Merged/blob/master/vcdb-complete.json.</p>
+mongourl: The string you use to connect to your server.</code></pre><h1>Using the Search Interface</h1><p>The search interface on the 'Search' tab and the search field in the 'Filter' option on all other tabs receives a MongoDB match query. For clarity, any query which is supplied to $match should work and all relevant MongoDB documentation associated with $match applies to usage of the search fields. It is recommended that the schema at vz-risk/vcdb be consulted for likely search candidates. <strong>Remember to stringify your query</strong>. For example, here are some common candidate queries:</p>
+<pre class="prettyprint source"><code>Search for all trojans within the &quot;summary&quot; field of an incident report.
+{&quot;summary&quot;: {&quot;$regex&quot;: &quot;trojan&quot;}}
+
+Search all incident reports for those which occurred in 2013 only.
+{&quot;timeline.incident.year&quot;: 2013}
+
+Search for all incidents where the actor was 'internal'.
+{&quot;actor.internal&quot;: {&quot;$exists&quot;: true}}</code></pre><p>The graphs will automatically update. Though Chart.js (the graphing dependency) can update in real-time, for large reloads the partial containing the graphs will be reloaded not redrawn. However, the application can receive updates via socket which simply cause a redraw when the server publishes updates.</p>
+<h1>Installation</h1><p>Ensure you are using the most recent versions of Node.JS and MongoDB. Download the joined JSON data file from here: https://github.com/walkerandco/VCDB-JSON-Merged/blob/master/vcdb-complete.json.</p>
 <p>Then make sure you have pulled the latest version of this repo by running:</p>
 <pre class="prettyprint source"><code>git clone https://github.com/walkerandco/verisdb-analyst.git</code></pre><p>Once you have done this, you should be able to import data into MongoDB by running:</p>
 <pre class="prettyprint source"><code>mongoimport --db yourdbname --collection yourcollectionname --file vcdb-complete.json --jsonArray</code></pre><p>Once this is done, run:</p>
@@ -68,7 +78,7 @@ mongourl: The string you use to connect to your server.</code></pre><h1>Installa
 /attacks/:type - returns all attack data involving that type
 /impacts - returns impact data
 /victims - returns victim data</code></pre><p>POST /</p>
-<pre class="prettyprint source"><code>/query - POST an object of format {match, group, sort, unwind} in order to receive aggregated data in response.</code></pre><h1>Contributions and Issues</h1><p>This repository will be update regularly. Please raise any issues on this GitHub repo, not by direct contact via email etc.
+<pre class="prettyprint source"><code>/query - POST an object of format {match, group, sort, unwind} in order to receive aggregated data in response.</code></pre><h1>Contributions and Issues</h1><p>This repository will be updated regularly. Please raise any issues on this GitHub repo, not by direct contact via email etc.
 If you wish to make a contribution, simply raise an issue and/or submit a pull request referencing that issue and I will review it fairly promptly.</p>
 <p><em>Copyright (c) Steven Walker-Roberts 2017</em></p></article>
     </section>
@@ -87,7 +97,7 @@ If you wish to make a contribution, simply raise an issue and/or submit a pull r
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 24 2017 06:45:53 GMT+0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 24 2017 06:47:43 GMT+0000 (UTC)
 </footer>
 
 <script> prettyPrint(); </script>
