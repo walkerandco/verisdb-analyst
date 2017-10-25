@@ -42,12 +42,17 @@ class vcdbFactory {
   /**
    * @constructs vcdbFactory
    */
-  constructor(url, debug) {
+  constructor(url, debug, bypass) {
       /** 
-       * Defines an empty pool of Redis connections.
-       * @property {boolean} url - Debug flag.
+       * Debug flag.
+       * @property {boolean} debug - Debug flag.
        */
       this.debug = 1;
+	  /** 
+       * Defines whether to bypass Yahoo Currency API (needed for monte carlo)
+       * @property {boolean} bypass - Bypass flag.
+       */
+      this.bypass = 0;
       /** 
        * Instantiates the vcdbDAO.
        * @property {object} vcdbDAO - VCDB DAO object.
@@ -83,24 +88,29 @@ class vcdbFactory {
 		/**
 		 * Helper function to retrieve relevant currency rates from Yahoo API.
 		 * @function vcdbFactory#getCurrency
+		 * @param {boolean} bypass - Bypass requests.
 		 * @returns {object} - An object containing currency data.
 		 */
-		getCurrencies(){
-		    return new Promise((resolve, reject) => {
-				https.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22ZARUSD%22%2C%20%22CADUSD%22%2C%20%22KRWUSD%22%2C%20%22INRUSD%22%2C%20%22CZKUSD%22%2C%20%22THBUSD%22%2C%20%22EURUSD%22%2C%20%22GBPUSD%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", (res) => {
-					var data = '';
-					res.on('data', (chunk) => {
-						data += chunk;
+		getCurrencies(bypass){
+			return new Promise((resolve, reject) => {
+				if(bypass){
+					resolve(1);
+				} else {
+					https.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22ZARUSD%22%2C%20%22CADUSD%22%2C%20%22KRWUSD%22%2C%20%22INRUSD%22%2C%20%22CZKUSD%22%2C%20%22THBUSD%22%2C%20%22EURUSD%22%2C%20%22GBPUSD%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", (res) => {
+						var data = '';
+						res.on('data', (chunk) => {
+							data += chunk;
+						});
+						res.on('end', () => {
+							if(this.debug) console.log("getCurrencies");
+							if(this.debug) console.log((JSON.parse(data)).query.results.rate);
+							resolve((JSON.parse(data)).query.results.rate);
+						});
+					}).on('error', (e) => {
+						console.error(e);
+						reject(e);
 					});
-					res.on('end', () => {
-						if(this.debug) console.log("getCurrencies");
-						if(this.debug) console.log((JSON.parse(data)).query.results.rate);
-						resolve((JSON.parse(data)).query.results.rate);
-					});
-				}).on('error', (e) => {
-				    console.error(e);
-					reject(e);
-				});
+				}
 			});
 		}
 		
@@ -259,7 +269,7 @@ class vcdbFactory {
 		 */
 		async reduceImpactData(dbString, colString, match, removeUnknown){
 			//context arrays
-			var currencies = await this.getCurrencies();
+			var currencies = await this.getCurrencies(this.bypass);
 			var timePlurals = ['days', 'months', 'years'];
 			var timeSingulars = ['day', 'month', 'year'];
 			var lossPlurals = ['varieties', 'ratings'];

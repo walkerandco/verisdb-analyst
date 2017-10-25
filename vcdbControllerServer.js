@@ -6,7 +6,7 @@
  * @version v0.0.1
  * @copyright Copyright (C) Steven Walker-Roberts 2017. MIT License.
  *
- * @module vcdbControllerServer
+ * @class vcdbControllerServer
  */
 
 ///////////////
