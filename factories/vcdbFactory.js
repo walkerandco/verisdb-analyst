@@ -156,8 +156,8 @@ class vcdbFactory {
 					var result = '';
 					//iterate each accessor and add aggregated data to new instance
 					for (var i in plural){
-						if(unwind && typeof unwind === 'number') unwind = (mAccessor+"."+singular[i]);
-						instance = this.vcdbHelper.mapArray(await this.mapAggregate(dbString, colString, match, mAccessor+'.'+singular[i], { count:1 }, unwind), instance, plural[i], singular[i], removeUnknown); //end of mapArray function
+						if(unwind) unwind = (mAccessor+"."+singular[i]);
+						instance = this.vcdbHelper.mapArray(await this.mapAggregate(dbString, colString, match, mAccessor+'.'+singular[i], { count:-1 }, unwind), instance, plural[i], singular[i], removeUnknown); //end of mapArray function
 						if (removeUnknown){
 							var removed = await this.vcdbHelper.removeDuplicates(await instance[plural[i]][singular[i]], await instance[plural[i]]['count'], removeUnknown);
 							instance[plural[i]][singular[i]] = removed.keys;
@@ -194,7 +194,7 @@ class vcdbFactory {
 				actorDataSeries[type]['types'] = ['internal','external','partner'];
 				//iterate each context object and run aggregation queries
 				for(var ind in plurals) {
-					actorDataSeries = await this.vcdbHelper.mapArray(await this.mapAggregate(dbString, colString, match, "$actor."+type+"."+singulars[ind], { count:1}, "$actor."+type+"."+singulars[ind]), actorDataSeries, plurals[ind], singulars[ind], removeUnknown);
+					actorDataSeries = await this.vcdbHelper.mapArray(await this.mapAggregate(dbString, colString, match, "$actor."+type+"."+singulars[ind], { count:-1}, "$actor."+type+"."+singulars[ind]), actorDataSeries, plurals[ind], singulars[ind], removeUnknown);
 					//add returned object to type object
 					actorDataSeries[type][plurals[ind]] = actorDataSeries[plurals[ind]];
 				}//end of for
